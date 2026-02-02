@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Data Freshness Matters | Trace</title>
+<meta name="description" content="CRA data lags by 6-8 weeks. Real-time move data captured at source closes the reconnection window gap for UK financial services.">
+<meta property="og:title" content="Why Data Freshness Matters: Real-Time vs Credit Reference Agency Data">
+<meta property="og:description" content="CRA data lags by 6-8 weeks. Real-time move data closes the reconnection gap.">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-size='20' font-weight='700' fill='white'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+<style>
+:root{--bg-primary:#0a0b0f;--bg-secondary:#12131a;--bg-card:#181a24;--border:#2a2d3e;--text-primary:#f0f0f5;--text-secondary:#8b8fa5;--text-muted:#8b8fa5;--accent:#8b5cf6;--accent-light:#a78bfa;--accent-glow:rgba(139,92,246,.15);--green:#4ade80;--font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.skip-link{position:absolute;top:-100%;left:16px;background:var(--accent);color:#fff;padding:8px 16px;border-radius:4px;z-index:1000;font-size:14px}.skip-link:focus{top:16px}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,11,15,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:15px}
+.nav-links a{color:var(--text-secondary);transition:color .2s}.nav-links a:hover,.nav-links a.active{color:var(--text-primary)}.nav-links a.active{color:var(--accent-light)}
+.article-wrap{max-width:740px;margin:0 auto;padding:60px 24px 80px}
+.breadcrumb{font-size:14px;color:var(--text-muted);margin-bottom:32px}.breadcrumb a{color:var(--accent-light)}
+.article-meta{display:flex;gap:16px;font-size:13px;color:var(--text-muted);margin-bottom:16px}
+.tag{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-light);background:var(--accent-glow);padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:16px}
+h1{font-size:36px;font-weight:800;line-height:1.2;margin-bottom:24px}
+.article-body h2{font-size:22px;font-weight:700;margin:36px 0 14px;color:var(--text-primary)}
+.article-body p{color:var(--text-secondary);margin-bottom:18px;font-size:16px}
+.article-body strong{color:var(--text-primary)}
+.timeline{margin:28px 0;display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:16px;position:relative;padding-bottom:24px}
+.tl-item:last-child{padding-bottom:0}
+.tl-marker{width:40px;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.tl-dot.green{background:var(--green)}
+.tl-line{width:2px;flex:1;background:var(--border);margin-top:6px}
+.tl-item:last-child .tl-line{display:none}
+.tl-content{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;flex:1}
+.tl-content .tl-label{font-size:13px;font-weight:600;color:var(--accent-light);margin-bottom:4px}
+.tl-content .tl-label.green{color:var(--green)}
+.tl-content p{color:var(--text-secondary);font-size:14px;margin:0}
+.comparison{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.comp-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.comp-col h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.comp-col.highlight{border-color:var(--accent)}
+.comp-col ul{list-style:none;font-size:14px;color:var(--text-secondary)}
+.comp-col ul li{padding:6px 0;border-bottom:1px solid var(--border)}
+.comp-col ul li:last-child{border:none}
+.comp-col ul li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.comp-col ul li::before{background:var(--text-muted)}
+.comp-col.highlight ul li::before{background:var(--green)}
+.cta-box{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:36px;text-align:center;margin:48px 0 0}
+.cta-box h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.cta-box p{color:var(--text-secondary);margin-bottom:20px;font-size:15px}
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:8px;font-weight:600;font-size:15px;transition:background .2s}.btn:hover{background:var(--accent-light)}
+.prev-next{display:flex;justify-content:space-between;margin-top:48px;padding-top:28px;border-top:1px solid var(--border);font-size:14px}
+.prev-next a{color:var(--accent-light);font-weight:500}
+footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;color:var(--text-muted);font-size:14px}
+footer a{color:var(--accent-light)}
+@media(max-width:600px){h1{font-size:26px}.comparison{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
+      Trace
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html" class="active">Resources</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <article class="article-wrap">
+    <div class="breadcrumb"><a href="../blog.html">&larr; Resources</a></div>
+    <span class="tag">Data</span>
+    <div class="article-meta">
+      <span>29 January 2026</span>
+      <span>&middot;</span>
+      <span>7 min read</span>
+    </div>
+    <h1>Why Data Freshness Matters: Real-Time vs Credit Reference Agency Data</h1>
+
+    <div class="article-body">
+      <p>When a financial services firm discovers that a customer has moved without leaving a forwarding address, the first instinct is usually to check credit reference agency (CRA) data. CRAs hold address histories for most UK adults, compiled from electoral roll records, financial account data, and other sources. It's a well-established approach, and for many use cases it works well enough. But for customer reconnection, the timing gap in CRA data creates a fundamental problem.</p>
+
+      <h2>How Credit Reference Agency Data Works</h2>
+      <p>Credit reference agencies such as Experian, Equifax, and TransUnion compile address data from multiple sources. The electoral roll is updated annually, with a monthly rolling register that captures some changes more quickly. Financial account data flows in from lenders and utility companies, typically on a <strong>monthly reporting cycle</strong>.</p>
+      <p>The result is that when a customer moves, their new address may not appear in CRA records for <strong>six to eight weeks</strong>, and in some cases considerably longer. The lag depends on when the customer registers to vote at the new address, when they open or update financial accounts, and when those data sources feed through to the CRA's systems.</p>
+      <p>For credit decisioning, this delay is often acceptable. A lender assessing a mortgage application can wait for address history to catch up. But for customer reconnection, six to eight weeks is the difference between success and failure.</p>
+
+      <h2>The Reconnection Window</h2>
+      <p>Research into moving behaviour shows that people are at their most administratively active in the <strong>first one to two weeks after a move</strong>. During this window, they are updating their address with the council, setting up utilities, registering with a new GP, and working through the long list of organisations that need to know about their change of address.</p>
+      <p>This is the reconnection window: the period when a customer is most likely to respond to an outreach from a financial services provider, because they are already in the mindset of ticking off administrative tasks. A well-timed communication during this window can prompt the customer to update their details, re-engage with their account, and confirm that their products are still appropriate.</p>
+      <p>Once the window closes, the customer settles into their new routine. The pile of admin shrinks. The pension they held with a previous employer, or the life insurance policy they took out years ago, drops off the mental list. At that point, even a perfectly addressed letter is likely to be set aside and forgotten.</p>
+
+      <h2>Real-Time Move Data: Captured at Source</h2>
+      <p>Real-time move data takes a fundamentally different approach. Instead of waiting for address changes to percolate through credit and electoral systems, it captures the move event at the point it happens: when a <strong>tenancy agreement is signed</strong> or a <strong>property completion takes place</strong>.</p>
+      <p>These are the definitive signals that someone has moved. A tenancy agreement confirms the customer, the old address, the new address, and the move date. A property completion does the same for homeowners. The data is captured at source, from the letting agents, property management platforms, and conveyancers who facilitate the move.</p>
+
+      <h2>The Triangulation Approach</h2>
+      <p>The real power of move data lies in its structure. A single move record provides four key data points for matching:</p>
+      <ul style="color: var(--text-secondary); margin: 0 0 18px 24px; font-size: 16px;">
+        <li style="margin-bottom: 8px;"><strong>The customer's identity</strong> (name and date of birth from the tenancy or completion)</li>
+        <li style="margin-bottom: 8px;"><strong>The old address</strong> (the address they're leaving)</li>
+        <li style="margin-bottom: 8px;"><strong>The new address</strong> (where they're going)</li>
+        <li style="margin-bottom: 8px;"><strong>The move date</strong> (when the change takes effect)</li>
+      </ul>
+      <p>This triangulation of customer identity, old address, and new address allows for high-confidence matching against a firm's customer records. If a firm holds a record for "Jane Smith at 14 Oak Lane" and a move record shows "Jane Smith moving from 14 Oak Lane to 28 Elm Street on 15 January," the match confidence is very high. The old address acts as a verification point that CRA data alone doesn't provide in the same immediate timeframe.</p>
+
+      <h2>Data Freshness Timeline Comparison</h2>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-label green">Day 0 &ndash; Real-time move data</div><p>Tenancy signed or completion occurs. Move record captured at source with customer, old address, new address, and move date.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-label green">Day 1&ndash;3 &ndash; Firm notified</div><p>Matched move record delivered to financial services firm. Customer is in peak "admin mode."</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-label">Week 2&ndash;4 &ndash; Reconnection window closing</div><p>Customer settles in. Administrative momentum fades. Response rates decline.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-label">Week 6&ndash;8 &ndash; CRA data available</div><p>Electoral roll or financial account data updates. New address appears in credit reference systems.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div></div>
+          <div class="tl-content"><div class="tl-label">Week 8+ &ndash; Traditional tracing</div><p>Firm receives updated CRA data and sends outreach. Customer has moved on mentally. Low engagement.</p></div>
+        </div>
+      </div>
+
+      <h2>A Comparison of Approaches</h2>
+
+      <div class="comparison">
+        <div class="comp-col">
+          <h3>CRA Data</h3>
+          <ul>
+            <li>6&ndash;8 week delay typical</li>
+            <li>Relies on downstream reporting</li>
+            <li>New address only, no old address context</li>
+            <li>Monthly batch updates</li>
+            <li>Reconnection window usually closed</li>
+          </ul>
+        </div>
+        <div class="comp-col highlight">
+          <h3>Real-Time Move Data</h3>
+          <ul>
+            <li>Available within days of move</li>
+            <li>Captured at source (tenancy/completion)</li>
+            <li>Old address + new address + move date</li>
+            <li>Continuous, event-driven delivery</li>
+            <li>Reaches customer during admin window</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Why It Matters for Outcomes</h2>
+      <p>The difference in timing isn't merely operational: it's the difference between a customer who re-engages and one who remains lost. Firms that rely solely on CRA data for tracing are systematically arriving after the reconnection window has closed. They are spending money on outreach that reaches the right address but at the wrong time, when the customer's attention has moved on.</p>
+      <p>Real-time move data doesn't replace CRA data for all purposes. Credit referencing, identity verification, and affordability assessment all benefit from the breadth and depth of CRA records. But for the specific use case of customer reconnection, where timing is everything, data freshness is the critical variable. The firms that reach a customer first, while they're still updating their records, are the firms that successfully reconnect.</p>
+    </div>
+
+    <div class="cta-box">
+      <h3>Get ahead of the data lag</h3>
+      <p>Trace delivers real-time move data so you can reconnect with customers while the window is still open.</p>
+      <a href="../contact.html" class="btn">Get in Touch</a>
+    </div>
+
+    <div class="prev-next">
+      <a href="fca-consumer-duty.html">&larr; Prev: FCA Consumer Duty</a>
+      <span></span>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <p>&copy; 2026 Trace. All rights reserved. &nbsp;|&nbsp; <a href="../index.html">Home</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a></p>
+</footer>
+</body>
+</html>

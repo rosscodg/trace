@@ -13,6 +13,9 @@
     <meta property="og:url" content="https://rosscodg.github.io/trace/contact.html">
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="https://rosscodg.github.io/trace/contact.html">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://qdxwvzmpantteasdgptj.supabase.co">
@@ -29,7 +32,7 @@
             --border-light: #353849;
             --text-primary: #f0f0f5;
             --text-secondary: #a0a3b5;
-            --text-muted: #6b6f85;
+            --text-muted: #8b8fa5;
             --accent: #8b5cf6;
             --accent-light: #a78bfa;
             --accent-glow: rgba(139, 92, 246, 0.15);
@@ -453,8 +456,10 @@
 </head>
 <body>
 
+<a href="#contactForm" class="skip-link" style="position:absolute;top:-100px;left:16px;background:#8b5cf6;color:#fff;padding:8px 16px;border-radius:8px;z-index:10000;font-size:0.875rem;font-weight:600;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top='16px'" onblur="this.style.top='-100px'">Skip to form</a>
+
 <!-- NAV -->
-<nav>
+<nav aria-label="Main navigation">
     <div class="nav-inner">
         <a href="index.html" class="nav-logo">
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
@@ -633,6 +638,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
         this.style.display = 'none';
         document.getElementById('formSuccess').classList.add('show');
+        if (typeof gtag === 'function') gtag('event', 'form_submission', { event_category: 'contact', event_label: data.company });
     } catch (err) {
         btn.classList.remove('loading');
         btn.querySelector('.btn-text').textContent = 'Send message';

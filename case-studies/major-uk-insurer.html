@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Major UK Insurer Case Study | Trace</title>
+    <meta name="description" content="How a major UK insurer reconnected £1bn in customer value through proactive real-time move data integration.">
+    <meta property="og:title" content="Major UK Insurer Case Study | Trace">
+    <meta property="og:description" content="How a major UK insurer reconnected £1bn in customer value through proactive real-time move data integration.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tracedata.co.uk/case-studies/major-uk-insurer.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-size='20' font-weight='700' fill='white'%3ET%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+    <style>
+        :root {
+            --bg-primary: #0a0b0f;
+            --bg-secondary: #12131a;
+            --bg-card: #181a24;
+            --border: #2a2d3e;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8b8fa5;
+            --text-muted: #8b8fa5;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.15);
+            --green: #4ade80;
+            --green-dim: rgba(74, 222, 128, 0.15);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 16px;
+            background: var(--accent);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            z-index: 1000;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .skip-link:focus { top: 16px; }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 11, 15, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--text-primary);
+        }
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent-light); }
+
+        .container { max-width: 840px; margin: 0 auto; padding: 0 24px; }
+
+        .hero {
+            padding: 80px 0 48px;
+            text-align: center;
+        }
+        .hero-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+        }
+        .hero-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px 32px;
+        }
+        .hero-stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent-light);
+        }
+        .hero-stat-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .section { padding: 48px 0; }
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .section p {
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .quote-section {
+            padding: 48px 0;
+        }
+        .quote-block {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 32px 36px;
+        }
+        .quote-block p {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .quote-block cite {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 64px 0 80px;
+        }
+        .cta-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 28px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .cta-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 28px; }
+            .hero-stat-number { font-size: 36px; }
+            .results-grid { grid-template-columns: 1fr 1fr; }
+            .quote-block { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <nav aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-logo" aria-label="Trace home">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
+                Trace
+            </a>
+            <a href="../index.html" class="nav-back">&larr; Back to Home</a>
+        </div>
+    </nav>
+
+    <main id="main">
+        <div class="container">
+            <section class="hero">
+                <span class="hero-label">Case Study</span>
+                <h1>Major UK Insurer</h1>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">&pound;1bn</span>
+                    <span class="hero-stat-label">customer value reconnected</span>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Challenge</h2>
+                <p>One of the UK's largest insurers, with a customer base spanning decades, was losing contact with hundreds of thousands of customers every year as people moved home without updating their details.</p>
+                <p>The existing batch-based tracing approach was expensive and yielding diminishing returns. Each tracing cycle took weeks to complete, and by the time results were returned, many customers had already been lost for months.</p>
+            </section>
+
+            <section class="section">
+                <h2>The Solution</h2>
+                <p>The insurer shifted from reactive batch tracing to Trace's proactive real-time reconnection model. Move data feeds were integrated directly into the existing CRM systems, enabling automated matching and notification workflows.</p>
+                <p>Rather than running periodic batch traces, the system continuously monitors for customer moves and flags matches as they happen, dramatically reducing the time between a customer moving and being reconnected.</p>
+            </section>
+
+            <section class="section">
+                <h2>The Results</h2>
+                <div class="results-grid">
+                    <div class="stat-card">
+                        <div class="number">100k</div>
+                        <div class="label">Reconnections per year</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">&pound;1bn</div>
+                        <div class="label">Customer value reconnected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">20%</div>
+                        <div class="label">Uplift vs traditional model</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">Ongoing</div>
+                        <div class="label">Programme status</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quote-section">
+                <blockquote class="quote-block">
+                    <p>&ldquo;Moving from reactive to proactive reconnection delivered a step-change in our gone-away recovery rates. The speed of data was the differentiator.&rdquo;</p>
+                    <cite>Head of Customer Operations</cite>
+                </blockquote>
+            </section>
+
+            <section class="cta-section">
+                <h2>Ready to reconnect with your customers?</h2>
+                <p>See how Trace can deliver measurable ROI for your organisation.</p>
+                <a href="../contact.html" class="cta-btn">Get in Touch</a>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Trace. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

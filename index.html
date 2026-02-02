@@ -15,6 +15,9 @@
     <meta name="twitter:title" content="Trace | Real-Time Customer Reconnection Data">
     <meta name="twitter:description" content="Know when your customers move - 6-12 weeks before credit reference agencies.">
     <link rel="canonical" href="https://rosscodg.github.io/trace/">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +34,7 @@
             --border-light: #353849;
             --text-primary: #f0f0f5;
             --text-secondary: #a0a3b5;
-            --text-muted: #6b6f85;
+            --text-muted: #8b8fa5;
             --accent: #8b5cf6;
             --accent-light: #a78bfa;
             --accent-glow: rgba(139, 92, 246, 0.15);
@@ -831,6 +834,23 @@
         }
         .compliance-badge .icon { color: var(--green); }
 
+        /* ===== SKIP TO CONTENT ===== */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            background: var(--accent);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            z-index: 10000;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 16px; }
+
         /* ===== ANIMATIONS ===== */
         .fade-in {
             opacity: 0;
@@ -913,8 +933,10 @@
 </head>
 <body>
 
+<a href="#main" class="skip-link">Skip to content</a>
+
 <!-- NAV -->
-<nav id="nav">
+<nav id="nav" aria-label="Main navigation">
     <div class="container-lg">
         <div class="nav-inner">
             <a href="#" class="nav-logo">
@@ -928,26 +950,29 @@
                 <li><a href="#compare">Compare</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#results">Results</a></li>
+                <li><a href="blog.html">Resources</a></li>
             </ul>
             <a href="#contact" class="nav-cta">Get Started &rarr;</a>
-            <button class="nav-menu-btn" onclick="document.getElementById('mobileNav').classList.add('open')">&#9776;</button>
+            <button class="nav-menu-btn" aria-label="Open menu" onclick="document.getElementById('mobileNav').classList.add('open')">&#9776;</button>
         </div>
     </div>
 </nav>
 
 <!-- MOBILE NAV -->
 <div id="mobileNav" class="mobile-nav">
-    <button class="mobile-nav-close" onclick="document.getElementById('mobileNav').classList.remove('open')">&times;</button>
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="document.getElementById('mobileNav').classList.remove('open')">&times;</button>
     <a href="#problem" onclick="document.getElementById('mobileNav').classList.remove('open')">The Problem</a>
     <a href="#solution" onclick="document.getElementById('mobileNav').classList.remove('open')">How It Works</a>
     <a href="#advantage" onclick="document.getElementById('mobileNav').classList.remove('open')">Our Advantage</a>
     <a href="#compare" onclick="document.getElementById('mobileNav').classList.remove('open')">Compare</a>
     <a href="#pricing" onclick="document.getElementById('mobileNav').classList.remove('open')">Pricing</a>
     <a href="#results" onclick="document.getElementById('mobileNav').classList.remove('open')">Results</a>
+    <a href="blog.html" onclick="document.getElementById('mobileNav').classList.remove('open')">Resources</a>
     <a href="#contact" class="nav-cta" onclick="document.getElementById('mobileNav').classList.remove('open')">Get Started</a>
 </div>
 
 <!-- HERO -->
+<main id="main">
 <section class="hero">
     <div class="container">
         <div class="hero-content">
@@ -1294,7 +1319,7 @@
             <p class="section-subtitle">Financial services firms that invest in customer tracing see significant returns. Here&rsquo;s what the industry is achieving.</p>
         </div>
         <div class="cases-grid">
-            <div class="case-card fade-in">
+            <a href="case-studies/royal-london.html" class="case-card fade-in" style="text-decoration:none;color:inherit;">
                 <div class="case-logo">Royal London</div>
                 <div class="case-stat">6.7x</div>
                 <div class="case-stat-label">Return on investment</div>
@@ -1303,8 +1328,8 @@
                     <li><span class="check">&#10003;</span> 36,000 policyholders traced</li>
                     <li><span class="check">&#10003;</span> &pound;14m in policies recovered</li>
                 </ul>
-            </div>
-            <div class="case-card fade-in">
+            </a>
+            <a href="case-studies/major-uk-insurer.html" class="case-card fade-in" style="text-decoration:none;color:inherit;">
                 <div class="case-logo">Major UK Insurer</div>
                 <div class="case-stat">&pound;1bn</div>
                 <div class="case-stat-label">Customer value reconnected</div>
@@ -1313,8 +1338,8 @@
                     <li><span class="check">&#10003;</span> 20% uplift with data-led model</li>
                     <li><span class="check">&#10003;</span> Ongoing programme</li>
                 </ul>
-            </div>
-            <div class="case-card fade-in">
+            </a>
+            <a href="case-studies/abi-research.html" class="case-card fade-in" style="text-decoration:none;color:inherit;">
                 <div class="case-logo">ABI Behavioural Research</div>
                 <div class="case-stat">&pound;100m</div>
                 <div class="case-stat-label">Additional annual reclamations</div>
@@ -1323,7 +1348,7 @@
                     <li><span class="check">&#10003;</span> Industry-wide research finding</li>
                     <li><span class="check">&#10003;</span> Supports proactive approach</li>
                 </ul>
-            </div>
+            </a>
         </div>
 
         <div class="roi-banner fade-in">
@@ -1445,8 +1470,10 @@
     </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
-<footer>
+<footer aria-label="Site footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -1463,6 +1490,7 @@
                     <li><a href="#advantage">Data Advantage</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#results">Case Studies</a></li>
+                    <li><a href="blog.html">Resources</a></li>
                 </ul>
             </div>
             <div class="footer-col">
