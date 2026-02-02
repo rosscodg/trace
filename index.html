@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JMI Trace | Real-Time Customer Reconnection Data</title>
+    <meta name="description" content="JMI Trace helps financial services reconnect with customers who move - in real-time, not weeks later. Powered by JustMoveIn.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-primary: #0a0b0f;
+            --bg-secondary: #12131a;
+            --bg-card: #181a24;
+            --bg-card-hover: #1e2030;
+            --border: #2a2d3e;
+            --border-light: #353849;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a3b5;
+            --text-muted: #6b6f85;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.15);
+            --accent-glow-strong: rgba(139, 92, 246, 0.3);
+            --green: #4ade80;
+            --green-dim: rgba(74, 222, 128, 0.15);
+            --red: #f87171;
+            --red-dim: rgba(248, 113, 113, 0.15);
+            --amber: #fbbf24;
+            --amber-dim: rgba(251, 191, 36, 0.15);
+            --blue: #60a5fa;
+            --blue-dim: rgba(96, 165, 250, 0.15);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===== UTILITY ===== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container-lg { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 120px 0; }
+        .section-sm { padding: 80px 0; }
+        .text-center { text-align: center; }
+        .text-accent { color: var(--accent-light); }
+        .text-green { color: var(--green); }
+        .text-muted { color: var(--text-secondary); }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+        p { color: var(--text-secondary); }
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+            background: var(--accent-glow);
+            padding: 6px 16px;
+            border-radius: 100px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 16px auto 0;
+            line-height: 1.7;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        nav.scrolled {
+            background: rgba(10, 11, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), #6d28d9);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .nav-logo span { opacity: 0.5; font-weight: 400; margin-left: 4px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+        .nav-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; text-align: center; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .hero h1 { margin-bottom: 24px; }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-light), #c084fc, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow-strong); }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+        .btn-secondary:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 80px;
+            padding-top: 60px;
+            border-top: 1px solid var(--border);
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+        .hero-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-top: 64px;
+        }
+        .problem-visual {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--red-dim) 0%, transparent 70%);
+        }
+        .problem-stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .problem-stat {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .problem-stat-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .problem-stat-label { font-size: 0.85rem; color: var(--text-muted); }
+        .problem-content h2 { margin-bottom: 24px; }
+        .problem-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+        .problem-list li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .problem-list li .icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            background: var(--red-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--red);
+            margin-top: 2px;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .step-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px var(--accent-glow); }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+        }
+        .step-card h3 { margin-bottom: 8px; font-size: 1.1rem; }
+        .step-card p { font-size: 0.9rem; color: var(--text-muted); }
+        .step-connector {
+            position: absolute;
+            top: 50px;
+            right: -14px;
+            color: var(--text-muted);
+            font-size: 1rem;
+            z-index: 1;
+        }
+
+        /* ===== DATA OUTPUT ===== */
+        .data-output {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            margin-top: 64px;
+            overflow: hidden;
+        }
+        .data-output h3 { margin-bottom: 8px; }
+        .data-output > p { margin-bottom: 32px; }
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .data-table th {
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table td {
+            padding: 16px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(42, 45, 62, 0.5);
+            color: var(--text-secondary);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table .field-name { color: var(--text-primary); font-weight: 500; }
+        .badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-green { background: var(--green-dim); color: var(--green); }
+        .badge-blue { background: var(--blue-dim); color: var(--blue); }
+        .badge-amber { background: var(--amber-dim); color: var(--amber); }
+
+        /* ===== SPEED ADVANTAGE ===== */
+        .speed-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+        .speed-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .speed-card:hover { border-color: var(--green); box-shadow: 0 8px 30px var(--green-dim); }
+        .speed-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-glow);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.25rem;
+        }
+        .speed-card h3 { font-size: 1rem; margin-bottom: 4px; }
+        .speed-timing {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .speed-advantage {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--green-dim);
+            color: var(--green);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .speed-footer {
+            margin-top: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 32px;
+            text-align: center;
+        }
+        .speed-footer p { font-size: 0.9rem; color: var(--text-muted); }
+        .speed-footer strong { color: var(--red); }
+
+        /* ===== COMPARISON ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 64px;
+        }
+        .comparison-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            position: relative;
+        }
+        .comparison-card.highlight {
+            border-color: var(--accent);
+            box-shadow: 0 0 60px var(--accent-glow);
+        }
+        .comparison-card.highlight::before {
+            content: 'Recommended';
+            position: absolute;
+            top: -12px;
+            left: 40px;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .comparison-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .comparison-card.highlight .comparison-icon { background: var(--accent-glow); }
+        .comparison-card:not(.highlight) .comparison-icon { background: rgba(255, 255, 255, 0.05); }
+        .comparison-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .comparison-list li {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .check { color: var(--green); font-size: 0.85rem; }
+        .cross { color: var(--red); font-size: 0.85rem; }
+        .minus { color: var(--text-muted); font-size: 0.85rem; }
+
+        /* ===== VS TABLE ===== */
+        .vs-table-wrapper {
+            margin-top: 64px;
+            overflow-x: auto;
+        }
+        .vs-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .vs-table th {
+            padding: 20px 24px;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        .vs-table th.highlight-col {
+            color: var(--accent-light);
+            background: var(--accent-glow);
+        }
+        .vs-table td {
+            padding: 16px 24px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(42, 45, 62, 0.5);
+            color: var(--text-secondary);
+        }
+        .vs-table tr:last-child td { border-bottom: none; }
+        .vs-table td.highlight-col {
+            background: rgba(139, 92, 246, 0.03);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+        .pricing-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 0 60px var(--accent-glow);
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .pricing-card:hover { transform: translateY(-4px); }
+        .pricing-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 16px 0 4px;
+            letter-spacing: -0.03em;
+        }
+        .pricing-unit { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; }
+        .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; flex: 1; }
+        .pricing-features li {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .pricing-btn {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .pricing-btn-primary { background: var(--accent); color: #fff; }
+        .pricing-btn-primary:hover { background: var(--accent-light); }
+        .pricing-btn-secondary { background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border); }
+        .pricing-btn-secondary:hover { border-color: var(--accent); }
+
+        /* ===== CASE STUDIES ===== */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+        .case-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .case-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .case-logo {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .case-stat {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+        .case-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .case-details { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .case-details li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* ===== ROI SECTION ===== */
+        .roi-banner {
+            background: linear-gradient(135deg, var(--accent-glow-strong), rgba(109, 40, 217, 0.15));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: var(--radius-xl);
+            padding: 64px;
+            text-align: center;
+            margin-top: 64px;
+        }
+        .roi-banner h3 { font-size: 1.75rem; margin-bottom: 16px; }
+        .roi-stats {
+            display: flex;
+            justify-content: center;
+            gap: 64px;
+            margin-top: 32px;
+        }
+        .roi-stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            letter-spacing: -0.03em;
+        }
+        .roi-stat-label { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            text-align: center;
+            padding: 120px 0 160px;
+        }
+        .cta-section h2 { margin-bottom: 16px; }
+        .cta-section p { max-width: 500px; margin: 0 auto 40px; }
+        .cta-steps {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 64px;
+        }
+        .cta-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .cta-step-num {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+        .cta-step h4 { font-size: 0.95rem; }
+        .cta-step p { font-size: 0.8rem; color: var(--text-muted); max-width: 180px; text-align: center; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 64px 0 32px;
+            background: var(--bg-secondary);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-brand p { font-size: 0.875rem; color: var(--text-muted); margin-top: 16px; max-width: 280px; }
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .footer-col a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--text-primary); }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .footer-bottom-links { display: flex; gap: 24px; }
+        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-bottom-links a:hover { color: var(--text-secondary); }
+
+        /* ===== COMPLIANCE BADGES ===== */
+        .compliance-bar {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+        .compliance-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        .compliance-badge .icon { color: var(--green); }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Fallback: show all after 2s in case observer fails */
+        .fade-in-loaded .fade-in { opacity: 1; transform: translateY(0); }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 1024px) {
+            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+            .speed-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .step-connector { display: none; }
+        }
+        @media (max-width: 768px) {
+            .section { padding: 80px 0; }
+            .nav-links { display: none; }
+            .nav-menu-btn { display: block; }
+            .hero-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .problem-grid { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .speed-grid { grid-template-columns: 1fr 1fr; }
+            .roi-stats { flex-direction: column; gap: 24px; }
+            .cta-steps { flex-direction: column; align-items: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .vs-table { font-size: 0.8rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-stats { grid-template-columns: 1fr; }
+            .speed-grid { grid-template-columns: 1fr; }
+            .hero-actions { flex-direction: column; align-items: center; }
+        }
+
+        /* ===== MOBILE NAV OVERLAY ===== */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 11, 15, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .mobile-nav.open { opacity: 1; pointer-events: all; }
+        .mobile-nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <div class="container-lg">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">T</div>
+                JMI Trace <span>by JustMoveIn</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#solution">How It Works</a></li>
+                <li><a href="#advantage">Our Advantage</a></li>
+                <li><a href="#compare">Compare</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#results">Results</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Get Started &rarr;</a>
+            <button class="nav-menu-btn" onclick="document.getElementById('mobileNav').classList.add('open')">&#9776;</button>
+        </div>
+    </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div id="mobileNav" class="mobile-nav">
+    <button class="mobile-nav-close" onclick="document.getElementById('mobileNav').classList.remove('open')">&times;</button>
+    <a href="#problem" onclick="document.getElementById('mobileNav').classList.remove('open')">The Problem</a>
+    <a href="#solution" onclick="document.getElementById('mobileNav').classList.remove('open')">How It Works</a>
+    <a href="#advantage" onclick="document.getElementById('mobileNav').classList.remove('open')">Our Advantage</a>
+    <a href="#compare" onclick="document.getElementById('mobileNav').classList.remove('open')">Compare</a>
+    <a href="#pricing" onclick="document.getElementById('mobileNav').classList.remove('open')">Pricing</a>
+    <a href="#results" onclick="document.getElementById('mobileNav').classList.remove('open')">Results</a>
+    <a href="#contact" class="nav-cta" onclick="document.getElementById('mobileNav').classList.remove('open')">Get Started</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Real-time customer reconnection for UK financial services
+            </div>
+            <h1>Know when your<br>customers move.<br><span class="gradient">Before anyone else.</span></h1>
+            <p class="hero-desc">JMI Trace provides real-time move notifications 6&ndash;12 weeks before credit reference agencies. Reconnect with gone-away customers at the moment they move, not months later.</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn-primary">Start a Pilot Programme &rarr;</a>
+                <a href="#solution" class="btn-secondary">See How It Works</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat fade-in">
+                    <div class="hero-stat-value">&pound;31.1bn</div>
+                    <div class="hero-stat-label">Unclaimed UK pension assets</div>
+                </div>
+                <div class="hero-stat fade-in">
+                    <div class="hero-stat-value">3.3m</div>
+                    <div class="hero-stat-label">Lost pension customers</div>
+                </div>
+                <div class="hero-stat fade-in">
+                    <div class="hero-stat-value">6&ndash;12 wks</div>
+                    <div class="hero-stat-label">Faster than credit agencies</div>
+                </div>
+                <div class="hero-stat fade-in">
+                    <div class="hero-stat-value">6.7x</div>
+                    <div class="hero-stat-label">Industry benchmark ROI</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" class="section">
+    <div class="container">
+        <div class="text-center fade-in">
+            <span class="section-label">The Problem</span>
+            <h2>The &pound;31 billion<br>&ldquo;Gone Away&rdquo; crisis</h2>
+            <p class="section-subtitle">When customers move house, they forget to tell their financial providers. Current tracing solutions are too slow to fix it.</p>
+        </div>
+        <div class="problem-grid">
+            <div class="problem-visual fade-in">
+                <div class="problem-stat-grid">
+                    <div class="problem-stat">
+                        <div class="problem-stat-value text-accent">&pound;31.1bn</div>
+                        <div class="problem-stat-label">Unclaimed pension pots</div>
+                    </div>
+                    <div class="problem-stat">
+                        <div class="problem-stat-value text-accent">3.3m</div>
+                        <div class="problem-stat-label">Lost pension customers</div>
+                    </div>
+                    <div class="problem-stat">
+                        <div class="problem-stat-value" style="color: var(--red);">60%</div>
+                        <div class="problem-stat-label">Growth since 2018</div>
+                    </div>
+                    <div class="problem-stat">
+                        <div class="problem-stat-value" style="color: var(--amber);">14th</div>
+                        <div class="problem-stat-label">Entity customers notify</div>
+                    </div>
+                </div>
+            </div>
+            <div class="problem-content fade-in">
+                <h3>Why customers go missing</h3>
+                <p style="color: var(--text-secondary); margin-top: 8px;">The average UK person moves 8 times in their lifetime. Pensions span 25&ndash;30 years. The maths doesn't work in your favour.</p>
+                <ul class="problem-list">
+                    <li>
+                        <span class="icon">&times;</span>
+                        Only 1 in 25 people (4%) notify their pension provider when moving
+                    </li>
+                    <li>
+                        <span class="icon">&times;</span>
+                        Pension providers rank 14th of 16 entities customers remember to contact
+                    </li>
+                    <li>
+                        <span class="icon">&times;</span>
+                        Credit reference data takes 6&ndash;8 weeks to update after a move
+                    </li>
+                    <li>
+                        <span class="icon">&times;</span>
+                        By the time data updates, the reconnection window has closed
+                    </li>
+                    <li>
+                        <span class="icon">&times;</span>
+                        FCA Consumer Duty requires proactive customer engagement
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="solution" class="section" style="background: var(--bg-secondary);">
+    <div class="container">
+        <div class="text-center fade-in">
+            <span class="section-label">How It Works</span>
+            <h2>Four steps to<br>customer reconnection</h2>
+            <p class="section-subtitle">Upload your customer data. We match against real-time move events and notify you instantly.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card fade-in" style="position: relative;">
+                <div class="step-number">1</div>
+                <h3>Ingest</h3>
+                <p>Upload your customer database &mdash; name and address. Batch or API.</p>
+                <span class="step-connector">&rarr;</span>
+            </div>
+            <div class="step-card fade-in" style="position: relative;">
+                <div class="step-number">2</div>
+                <h3>Match</h3>
+                <p>We match against JustMoveIn&rsquo;s real-time move data from tenancy and completion events.</p>
+                <span class="step-connector">&rarr;</span>
+            </div>
+            <div class="step-card fade-in" style="position: relative;">
+                <div class="step-number">3</div>
+                <h3>Verify</h3>
+                <p>Triangulation confirms identity: customer + old address + new address + move date.</p>
+                <span class="step-connector">&rarr;</span>
+            </div>
+            <div class="step-card fade-in">
+                <div class="step-number">4</div>
+                <h3>Notify</h3>
+                <p>Receive match alerts via API or batch file. Reconnect at the moment of move.</p>
+            </div>
+        </div>
+
+        <!-- Data Output -->
+        <div class="data-output fade-in">
+            <h3>The Triangulation Data You Receive</h3>
+            <p class="text-muted">Every match includes the complete data set required for high-confidence reconnection.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data Field</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="field-name">Customer Match</td>
+                        <td>Confirmed identity match</td>
+                        <td><span class="badge badge-green">High Confidence</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Previous Address</td>
+                        <td>The address on your records (verification point)</td>
+                        <td>14 Oak Lane, Manchester, M1 2AB</td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">New Address</td>
+                        <td>Verified new address from move transaction</td>
+                        <td>7 Elm Court, Leeds, LS1 4CD</td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Move Date</td>
+                        <td>Precise date of move (not estimated)</td>
+                        <td>2026-01-15</td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Move Type</td>
+                        <td>Tenancy agreement or property completion</td>
+                        <td><span class="badge badge-blue">Tenant</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Confidence Score</td>
+                        <td>Match confidence level</td>
+                        <td><span class="badge badge-green">High</span> <span class="badge badge-amber">Medium</span> <span class="badge badge-blue">Low</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- SPEED ADVANTAGE -->
+<section id="advantage" class="section">
+    <div class="container">
+        <div class="text-center fade-in">
+            <span class="section-label">Our Advantage</span>
+            <h2>Real-time data,<br>weeks before anyone else</h2>
+            <p class="section-subtitle">We capture move data at the source &mdash; from tenancy agreements, mortgage offers and completion reports &mdash; not from credit reference agencies.</p>
+        </div>
+        <div class="speed-grid">
+            <div class="speed-card fade-in">
+                <div class="speed-icon">&#127968;</div>
+                <h3>Tenancy Agreements</h3>
+                <p class="speed-timing">Captured at signing</p>
+                <div class="speed-advantage">&uarr; 6&ndash;8 weeks faster</div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-icon">&#127970;</div>
+                <h3>Mortgage Offers</h3>
+                <p class="speed-timing">Captured at offer stage</p>
+                <div class="speed-advantage">&uarr; 8&ndash;12 weeks faster</div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-icon">&#128221;</div>
+                <h3>Completion Reports</h3>
+                <p class="speed-timing">Day of completion</p>
+                <div class="speed-advantage">&uarr; 4&ndash;6 weeks faster</div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-icon">&#9889;</div>
+                <h3>Utility Connections</h3>
+                <p class="speed-timing">At connection</p>
+                <div class="speed-advantage">&uarr; 4&ndash;6 weeks faster</div>
+            </div>
+        </div>
+        <div class="speed-footer fade-in">
+            <p><strong>Credit Reference Agencies:</strong> 6&ndash;8 weeks minimum delay. Address changes only appear after credit applications, utility registrations, or electoral roll updates have been processed.</p>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARISON: US vs THEM -->
+<section id="compare" class="section" style="background: var(--bg-secondary);">
+    <div class="container">
+        <div class="text-center fade-in">
+            <span class="section-label">Why JMI Trace</span>
+            <h2>Us versus them</h2>
+            <p class="section-subtitle">See how JMI Trace compares to traditional tracing providers across the metrics that matter.</p>
+        </div>
+
+        <div class="comparison-grid fade-in">
+            <div class="comparison-card highlight">
+                <div class="comparison-header">
+                    <div class="comparison-icon">T</div>
+                    <h3>JMI Trace</h3>
+                </div>
+                <ul class="comparison-list">
+                    <li><span class="check">&#10003;</span> Real-time move data (day of move)</li>
+                    <li><span class="check">&#10003;</span> 6&ndash;12 weeks faster than credit agencies</li>
+                    <li><span class="check">&#10003;</span> Full triangulation (customer + old + new address + date)</li>
+                    <li><span class="check">&#10003;</span> Proactive prevention of &ldquo;gone away&rdquo;</li>
+                    <li><span class="check">&#10003;</span> &pound;25&ndash;50 per match (undercuts market)</li>
+                    <li><span class="check">&#10003;</span> API and batch delivery</li>
+                    <li><span class="check">&#10003;</span> GDPR compliant with legitimate interest basis</li>
+                    <li><span class="check">&#10003;</span> FCA Consumer Duty aligned</li>
+                </ul>
+            </div>
+            <div class="comparison-card">
+                <div class="comparison-header">
+                    <div class="comparison-icon">&#8942;</div>
+                    <h3>Traditional Providers</h3>
+                </div>
+                <ul class="comparison-list">
+                    <li><span class="cross">&times;</span> Credit reference data (6&ndash;8 week delay)</li>
+                    <li><span class="cross">&times;</span> Reactive tracing after customer is already lost</li>
+                    <li><span class="minus">&mdash;</span> Address data only (no triangulation)</li>
+                    <li><span class="cross">&times;</span> Reactive &mdash; trace after the fact</li>
+                    <li><span class="cross">&times;</span> &pound;50&ndash;100+ per trace</li>
+                    <li><span class="minus">&mdash;</span> Batch only for most providers</li>
+                    <li><span class="check">&#10003;</span> GDPR compliant</li>
+                    <li><span class="minus">&mdash;</span> Compliance-driven, not outcome-driven</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed VS table -->
+        <div class="vs-table-wrapper fade-in">
+            <table class="vs-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="highlight-col">JMI Trace</th>
+                        <th>Capita Tracing</th>
+                        <th>Gretel e-trace</th>
+                        <th>Synectics / CRA-based</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data freshness</td>
+                        <td class="highlight-col">Real-time (day of move)</td>
+                        <td>6&ndash;8 weeks (CRA data)</td>
+                        <td>Digital contact tracing</td>
+                        <td>6&ndash;8 weeks (CRA data)</td>
+                    </tr>
+                    <tr>
+                        <td>Approach</td>
+                        <td class="highlight-col">Proactive prevention</td>
+                        <td>Reactive tracing</td>
+                        <td>Reactive reconnection</td>
+                        <td>Reactive tracing</td>
+                    </tr>
+                    <tr>
+                        <td>Data type</td>
+                        <td class="highlight-col">Triangulation (full data set)</td>
+                        <td>Address confirmation</td>
+                        <td>Digital contact details</td>
+                        <td>Address confirmation</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery</td>
+                        <td class="highlight-col">API + Batch</td>
+                        <td>Portal + Batch</td>
+                        <td>Digital platform</td>
+                        <td>Batch</td>
+                    </tr>
+                    <tr>
+                        <td>Cost per trace</td>
+                        <td class="highlight-col">&pound;25&ndash;50</td>
+                        <td>&pound;50&ndash;100+</td>
+                        <td>75% lower than traditional</td>
+                        <td>&pound;50&ndash;100+</td>
+                    </tr>
+                    <tr>
+                        <td>Completion time</td>
+                        <td class="highlight-col">Same day</td>
+                        <td>Weeks to months</td>
+                        <td>Days</td>
+                        <td>Weeks to months</td>
+                    </tr>
+                    <tr>
+                        <td>FCA Consumer Duty</td>
+                        <td class="highlight-col">Native alignment</td>
+                        <td>Compliance-driven</td>
+                        <td>Outcome-focused</td>
+                        <td>Compliance-driven</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="results" class="section">
+    <div class="container">
+        <div class="text-center fade-in">
+            <span class="section-label">Industry Results</span>
+            <h2>Customer reconnection<br>delivers proven ROI</h2>
+            <p class="section-subtitle">Financial services firms that invest in customer tracing see significant returns. Here&rsquo;s what the industry is achieving.</p>
+        </div>
+        <div class="cases-grid">
+            <div class="case-card fade-in">
+                <div class="case-logo">Royal London</div>
+                <div class="case-stat">6.7x</div>
+                <div class="case-stat-label">Return on investment</div>
+                <ul class="case-details">
+                    <li><span class="check">&#10003;</span> &pound;2.1m investment</li>
+                    <li><span class="check">&#10003;</span> 36,000 policyholders traced</li>
+                    <li><span class="check">&#10003;</span> &pound;14m in policies recovered</li>
+                </ul>
+            </div>
+            <div class="case-card fade-in">
+                <div class="case-logo">Major UK Insurer</div>
+                <div class="case-stat">&pound;1bn</div>
+                <div class="case-stat-label">Customer value reconnected</div>
+                <ul class="case-details">
+                    <li><span class="check">&#10003;</span> 100,000 reconnections per year</li>
+                    <li><span class="check">&#10003;</span> 20% uplift with data-led model</li>
+                    <li><span class="check">&#10003;</span> Ongoing programme</li>
+                </ul>
+            </div>
+            <div class="case-card fade-in">
+                <div class="case-logo">ABI Behavioural Research</div>
+                <div class="case-stat">&pound;100m</div>
+                <div class="case-stat-label">Additional annual reclamations</div>
+                <ul class="case-details">
+                    <li><span class="check">&#10003;</span> 10% improvement in reconnection rates</li>
+                    <li><span class="check">&#10003;</span> Industry-wide research finding</li>
+                    <li><span class="check">&#10003;</span> Supports proactive approach</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="roi-banner fade-in">
+            <h3>The opportunity is massive &mdash; and growing</h3>
+            <p class="text-muted">Unclaimed assets in the UK have surged 60% since 2018. Regulatory pressure from the Dormant Assets Act and FCA Consumer Duty means firms must act now.</p>
+            <div class="roi-stats">
+                <div>
+                    <div class="roi-stat-value">&pound;31.1bn</div>
+                    <div class="roi-stat-label">Unclaimed pension pots</div>
+                </div>
+                <div>
+                    <div class="roi-stat-value">60%</div>
+                    <div class="roi-stat-label">Growth since 2018</div>
+                </div>
+                <div>
+                    <div class="roi-stat-value">&pound;9,470+</div>
+                    <div class="roi-stat-label">Average pot value</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section" style="background: var(--bg-secondary);">
+    <div class="container">
+        <div class="text-center fade-in">
+            <span class="section-label">Pricing</span>
+            <h2>Flexible pricing to<br>match your needs</h2>
+            <p class="section-subtitle">Choose the model that works for your business. All options include GDPR-compliant data handling, dedicated onboarding and SLA guarantees.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card fade-in">
+                <h3>Per-Match</h3>
+                <p class="text-muted" style="font-size: 0.85rem;">Pay per confirmed customer match</p>
+                <div class="pricing-price">&pound;25&ndash;50</div>
+                <div class="pricing-unit">per confirmed match</div>
+                <ul class="pricing-features">
+                    <li><span class="check">&#10003;</span> Predictable, transparent costs</li>
+                    <li><span class="check">&#10003;</span> Volume discounts available</li>
+                    <li><span class="check">&#10003;</span> Undercuts Capita (&pound;50&ndash;100)</li>
+                    <li><span class="check">&#10003;</span> Full triangulation data</li>
+                    <li><span class="check">&#10003;</span> Batch or API delivery</li>
+                </ul>
+                <a href="#contact" class="pricing-btn pricing-btn-secondary">Get Started</a>
+            </div>
+            <div class="pricing-card featured fade-in">
+                <h3>Success Fee</h3>
+                <p class="text-muted" style="font-size: 0.85rem;">Pay only when customer is reconnected</p>
+                <div class="pricing-price">&pound;100&ndash;200</div>
+                <div class="pricing-unit">per successful reconnection</div>
+                <ul class="pricing-features">
+                    <li><span class="check">&#10003;</span> Aligned incentives</li>
+                    <li><span class="check">&#10003;</span> Zero risk &mdash; pay for outcomes</li>
+                    <li><span class="check">&#10003;</span> Higher margin per reconnection</li>
+                    <li><span class="check">&#10003;</span> Full triangulation data</li>
+                    <li><span class="check">&#10003;</span> Dedicated success manager</li>
+                </ul>
+                <a href="#contact" class="pricing-btn pricing-btn-primary">Get Started</a>
+            </div>
+            <div class="pricing-card fade-in">
+                <h3>API Subscription</h3>
+                <p class="text-muted" style="font-size: 0.85rem;">Real-time API access for enterprise</p>
+                <div class="pricing-price">&pound;5&ndash;25k</div>
+                <div class="pricing-unit">per month + per-lookup fee</div>
+                <ul class="pricing-features">
+                    <li><span class="check">&#10003;</span> Real-time API integration</li>
+                    <li><span class="check">&#10003;</span> Custom matching rules</li>
+                    <li><span class="check">&#10003;</span> Dedicated support team</li>
+                    <li><span class="check">&#10003;</span> SLA guarantees</li>
+                    <li><span class="check">&#10003;</span> Full onboarding programme</li>
+                </ul>
+                <a href="#contact" class="pricing-btn pricing-btn-secondary">Contact Sales</a>
+            </div>
+        </div>
+        <div class="compliance-bar fade-in">
+            <div class="compliance-badge"><span class="icon">&#10003;</span> GDPR Compliant</div>
+            <div class="compliance-badge"><span class="icon">&#10003;</span> FCA Consumer Duty Aligned</div>
+            <div class="compliance-badge"><span class="icon">&#10003;</span> Legitimate Interest Basis</div>
+            <div class="compliance-badge"><span class="icon">&#10003;</span> Full Audit Trails</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+    <div class="container">
+        <div class="fade-in">
+            <span class="section-label">Get Started</span>
+            <h2>Ready to reconnect with<br>your customers?</h2>
+            <p class="section-subtitle">Start with a 10,000 customer proof of concept. See match rates against your real data.</p>
+            <div class="hero-actions" style="margin-top: 32px;">
+                <a href="mailto:ross@justmovein.com" class="btn-primary">Start Your Pilot &rarr;</a>
+                <a href="mailto:ross@justmovein.com" class="btn-secondary">Book a Demo</a>
+            </div>
+        </div>
+        <div class="cta-steps fade-in">
+            <div class="cta-step">
+                <div class="cta-step-num">1</div>
+                <h4>Pilot Programme</h4>
+                <p>10,000 customer proof of concept with match rate analysis</p>
+            </div>
+            <div class="cta-step">
+                <div class="cta-step-num">2</div>
+                <h4>Integration</h4>
+                <p>Technical review and API or batch specification</p>
+            </div>
+            <div class="cta-step">
+                <div class="cta-step-num">3</div>
+                <h4>Agreement</h4>
+                <p>Pricing model selection and contract terms</p>
+            </div>
+            <div class="cta-step">
+                <div class="cta-step-num">4</div>
+                <h4>Go Live</h4>
+                <p>Full production deployment with dedicated support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo" style="margin-bottom: 8px;">
+                    <div class="nav-logo-icon">T</div>
+                    JMI Trace
+                </a>
+                <p>Real-time customer reconnection data, powered by JustMoveIn. Helping UK financial services reconnect with customers who move.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#solution">How It Works</a></li>
+                    <li><a href="#advantage">Data Advantage</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">API Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About JustMoveIn</a></li>
+                    <li><a href="#results">Case Studies</a></li>
+                    <li><a href="#">Partners</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">GDPR Compliance</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 JMI Trace, a division of JustMoveIn. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="mailto:ross@justmovein.com">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Fallback: if after 3s some are still hidden, show them
+setTimeout(() => { document.body.classList.add('fade-in-loaded'); }, 3000);
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+</body>
+</html>
