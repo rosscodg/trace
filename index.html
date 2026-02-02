@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trace | Real-Time Customer Reconnection Data</title>
     <meta name="description" content="Trace helps financial services reconnect with customers who move - in real-time, not weeks later. Powered by Just Move In.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-size='20' font-weight='700' fill='white'%3ET%3C/text%3E%3C/svg%3E">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Trace | Real-Time Customer Reconnection Data">
+    <meta property="og:description" content="Know when your customers move - 6-12 weeks before credit reference agencies. Real-time reconnection data for UK financial services.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rosscodg.github.io/trace/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Trace | Real-Time Customer Reconnection Data">
+    <meta name="twitter:description" content="Know when your customers move - 6-12 weeks before credit reference agencies.">
+    <link rel="canonical" href="https://rosscodg.github.io/trace/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -851,9 +861,11 @@
             .steps-grid { grid-template-columns: 1fr; }
             .speed-grid { grid-template-columns: 1fr 1fr; }
             .roi-stats { flex-direction: column; gap: 24px; }
+            .roi-banner { padding: 40px 24px; }
             .cta-steps { flex-direction: column; align-items: center; }
             .footer-grid { grid-template-columns: 1fr; }
             .vs-table { font-size: 0.8rem; }
+            .data-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
         @media (max-width: 480px) {
             .hero-stats { grid-template-columns: 1fr; }
@@ -906,7 +918,7 @@
     <div class="container-lg">
         <div class="nav-inner">
             <a href="#" class="nav-logo">
-                <div class="nav-logo-icon">T</div>
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
                 Trace <span>by Just Move In</span>
             </a>
             <ul class="nav-links">
@@ -966,6 +978,12 @@
                     <div class="hero-stat-value">6.7x</div>
                     <div class="hero-stat-label">Industry benchmark ROI</div>
                 </div>
+            </div>
+            <div class="compliance-bar" style="margin-top: 40px; border-top: none; padding-top: 0;">
+                <div class="compliance-badge"><span class="icon">&#128274;</span> GDPR Compliant</div>
+                <div class="compliance-badge"><span class="icon">&#9989;</span> FCA Consumer Duty</div>
+                <div class="compliance-badge"><span class="icon">&#128737;</span> ICO Registered</div>
+                <div class="compliance-badge"><span class="icon">&#128196;</span> Full Audit Trails</div>
             </div>
         </div>
     </div>
@@ -1068,6 +1086,7 @@
         <div class="data-output fade-in">
             <h3>The Triangulation Data You Receive</h3>
             <p class="text-muted">Every match includes the complete data set required for high-confidence reconnection.</p>
+            <div class="data-table-scroll">
             <table class="data-table">
                 <thead>
                     <tr>
@@ -1109,6 +1128,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </section>
@@ -1431,7 +1451,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="#" class="nav-logo" style="margin-bottom: 8px;">
-                    <div class="nav-logo-icon">T</div>
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
                     Trace
                 </a>
                 <p>Real-time customer reconnection data, powered by Just Move In. Helping UK financial services reconnect with customers who move.</p>
@@ -1442,33 +1462,29 @@
                     <li><a href="#solution">How It Works</a></li>
                     <li><a href="#advantage">Data Advantage</a></li>
                     <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#contact">API Documentation</a></li>
+                    <li><a href="#results">Case Studies</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="#">About Just Move In</a></li>
-                    <li><a href="#results">Case Studies</a></li>
-                    <li><a href="#">Partners</a></li>
-                    <li><a href="#">Careers</a></li>
+                    <li><a href="https://www.justmovein.com" target="_blank" rel="noopener">About Just Move In</a></li>
+                    <li><a href="contact.html">Contact Sales</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Legal</h4>
                 <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">GDPR Compliance</a></li>
-                    <li><a href="#">Data Processing</a></li>
+                    <li><a href="contact.html">Privacy enquiries</a></li>
+                    <li><a href="contact.html">Terms enquiries</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <span>&copy; 2026 Trace, a division of Just Move In. All rights reserved.</span>
             <div class="footer-bottom-links">
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
+                <a href="contact.html">Privacy</a>
+                <a href="contact.html">Terms</a>
                 <a href="contact.html">Contact</a>
             </div>
         </div>
