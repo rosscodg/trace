@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Sales | Trace by Just Move In</title>
+    <meta name="description" content="Get in touch with the Trace team. Start a pilot programme or book a demo.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-primary: #0a0b0f;
+            --bg-secondary: #12131a;
+            --bg-card: #141519;
+            --bg-input: #1a1b21;
+            --border: #2a2d3e;
+            --border-light: #353849;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a3b5;
+            --text-muted: #6b6f85;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.15);
+            --green: #4ade80;
+            --green-dim: rgba(74, 222, 128, 0.15);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            background: rgba(10, 11, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), #6d28d9);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .nav-logo span { opacity: 0.5; font-weight: 400; margin-left: 4px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-light); }
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--text-primary); }
+
+        /* ===== MAIN LAYOUT ===== */
+        .contact-page {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            padding-top: 73px;
+        }
+
+        /* Left column */
+        .contact-info {
+            padding: 80px 64px 80px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        .contact-info::after {
+            content: '';
+            position: absolute;
+            top: 73px;
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border) 20%, var(--border) 80%, transparent);
+        }
+        .contact-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+        .contact-info h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+        .contact-info > p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 420px;
+            line-height: 1.7;
+        }
+
+        .contact-features { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 56px; }
+        .contact-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .contact-features .icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            background: var(--green-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--green);
+        }
+
+        /* Testimonial */
+        .testimonial {
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+        }
+        .testimonial-quote {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid var(--accent);
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #6d28d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .testimonial-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+        .testimonial-role { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Right column - form */
+        .contact-form-wrapper {
+            padding: 80px 80px 80px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+        }
+        .contact-form-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        .contact-form-card h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .form-group label .req { color: #f87171; }
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .form-input::placeholder { color: var(--text-muted); }
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6f85' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+        .form-submit:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3); }
+
+        .form-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .form-footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .form-footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .form-footer a:hover { text-decoration: underline; }
+
+        /* ===== LOGOS BAR ===== */
+        .logos-section {
+            padding: 80px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .logos-section h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .logos-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 56px;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .logo-item {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .logo-item:hover { opacity: 1; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        /* ===== SUCCESS STATE ===== */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .form-success.show { display: block; }
+        .form-success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--green-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: var(--green);
+        }
+        .form-success h3 { font-size: 1.25rem; margin-bottom: 8px; }
+        .form-success p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 1024px) {
+            .contact-page { grid-template-columns: 1fr; }
+            .contact-info {
+                padding: 60px 24px 40px;
+                text-align: center;
+                align-items: center;
+            }
+            .contact-info::after { display: none; }
+            .contact-info > p { margin-left: auto; margin-right: auto; }
+            .contact-features { align-items: center; }
+            .testimonial { max-width: 480px; margin: 0 auto; }
+            .testimonial-quote { text-align: left; }
+            .contact-form-wrapper { padding: 40px 24px 60px; }
+            .contact-info h1 { font-size: 2rem; }
+        }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .footer-inner { flex-direction: column; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon">T</div>
+            Trace <span>by Just Move In</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html#solution">How It Works</a></li>
+            <li><a href="index.html#advantage">Our Advantage</a></li>
+            <li><a href="index.html#compare">Compare</a></li>
+            <li><a href="index.html#pricing">Pricing</a></li>
+            <li><a href="index.html#results">Results</a></li>
+        </ul>
+        <a href="index.html" class="nav-back">&larr; Back to home</a>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<div class="contact-page">
+    <!-- Left: Info -->
+    <div class="contact-info">
+        <div class="contact-label">Contact sales</div>
+        <h1>Talk to our<br>Sales team</h1>
+        <p>Connect with us to explore how Trace can help you reconnect with gone-away customers in real-time.</p>
+
+        <ul class="contact-features">
+            <li>
+                <span class="icon">&#10003;</span>
+                Live demo of the Trace matching platform
+            </li>
+            <li>
+                <span class="icon">&#10003;</span>
+                Custom match rate analysis on your data
+            </li>
+            <li>
+                <span class="icon">&#10003;</span>
+                10,000 customer pilot programme scoping
+            </li>
+            <li>
+                <span class="icon">&#10003;</span>
+                Flexible pricing tailored to your needs
+            </li>
+        </ul>
+
+        <div class="testimonial">
+            <div class="testimonial-quote">
+                &ldquo;The combination of real-time data and triangulation gives us confidence levels we&rsquo;ve never had before. It&rsquo;s a fundamentally different approach to customer reconnection.&rdquo;
+            </div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">TC</div>
+                <div>
+                    <div class="testimonial-name">Tony Carnell</div>
+                    <div class="testimonial-role">ABI Working Group</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="contact-form-wrapper">
+        <div class="contact-form-card">
+            <h2>How can we help?</h2>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First name <span class="req">*</span></label>
+                        <input type="text" class="form-input" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last name <span class="req">*</span></label>
+                        <input type="text" class="form-input" placeholder="Smith" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Work email <span class="req">*</span></label>
+                    <input type="email" class="form-input" placeholder="john@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Company <span class="req">*</span></label>
+                    <input type="text" class="form-input" placeholder="Your company name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Customer base size</label>
+                    <select class="form-input">
+                        <option value="" disabled selected>Select an option</option>
+                        <option>Under 100,000</option>
+                        <option>100,000 &ndash; 500,000</option>
+                        <option>500,000 &ndash; 1 million</option>
+                        <option>1 million &ndash; 5 million</option>
+                        <option>5 million+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>How can we help? <span class="req">*</span></label>
+                    <textarea class="form-input" placeholder="Tell us about your gone-away customer challenge and what you're looking for..." required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Send message</button>
+            </form>
+
+            <div id="formSuccess" class="form-success">
+                <div class="form-success-icon">&#10003;</div>
+                <h3>Message sent</h3>
+                <p>Thanks for reaching out. We&rsquo;ll be in touch within 24 hours.</p>
+            </div>
+
+            <div class="form-footer">
+                <p>You can also email us at <a href="mailto:ross@justmovein.com">ross@justmovein.com</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LOGOS -->
+<div class="logos-section">
+    <h3>Trusted by leading UK financial services</h3>
+    <div class="logos-grid">
+        <div class="logo-item">Aviva</div>
+        <div class="logo-item">Royal London</div>
+        <div class="logo-item">ABI</div>
+        <div class="logo-item">Janus Henderson</div>
+        <div class="logo-item">Rathbones</div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <span>&copy; 2026 Trace, a division of Just Move In. All rights reserved.</span>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+});
+</script>
+
+</body>
+</html>
