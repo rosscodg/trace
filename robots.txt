@@ -1,0 +1,39 @@
+# Tracely - robots.txt
+# https://tracely.co.uk
+
+User-agent: *
+Allow: /
+
+# AI Crawlers - explicitly allow for GEO optimization
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Sitemap location
+Sitemap: https://tracely.co.uk/sitemap.xml
+
+# LLMs.txt for AI model guidance
+# See: https://tracely.co.uk/llms.txt
