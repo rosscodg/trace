@@ -434,30 +434,52 @@
             overflow: hidden;
         }
         .data-output h3 { margin-bottom: 8px; }
-        .data-output > p { margin-bottom: 32px; }
-        .data-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
+        .data-output > p { margin-bottom: 24px; }
+        .data-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
-        .data-table th {
-            text-align: left;
-            font-size: 0.75rem;
+        .data-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+        .data-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .data-card-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-glow);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--accent-light);
+        }
+        .data-card-title {
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .data-card-desc {
+            font-size: 0.85rem;
             color: var(--text-muted);
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
-        .data-table td {
-            padding: 16px;
-            font-size: 0.9rem;
-            border-bottom: 1px solid rgba(42, 45, 62, 0.5);
+        .data-card-example {
+            font-size: 0.85rem;
             color: var(--text-secondary);
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
         }
-        .data-table tr:last-child td { border-bottom: none; }
-        .data-table .field-name { color: var(--text-primary); font-weight: 500; }
         .badge {
             display: inline-flex;
             padding: 4px 10px;
@@ -896,6 +918,7 @@
             .cases-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             .step-connector { display: none; }
+            .data-cards { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
             .section { padding: 80px 0; }
@@ -912,7 +935,7 @@
             .footer-grid { grid-template-columns: 1fr; }
             .vs-table { font-size: 0.8rem; }
             .vs-table th, .vs-table td { padding: 12px 16px; }
-            .data-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .data-cards { grid-template-columns: 1fr 1fr; }
             .hero-desc { font-size: 1rem; padding: 0 8px; }
             .section-subtitle { font-size: 1rem; padding: 0 8px; }
             h1 br, h2 br { display: none; }
@@ -922,6 +945,7 @@
             .section { padding: 60px 0; }
             .hero-stats { grid-template-columns: 1fr; }
             .speed-grid { grid-template-columns: 1fr; }
+            .data-cards { grid-template-columns: 1fr; }
             .hero-actions { flex-direction: column; align-items: center; width: 100%; }
             .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; text-align: center; }
             .vs-table th, .vs-table td { padding: 10px 12px; font-size: 0.75rem; }
@@ -1250,48 +1274,55 @@
         <div class="data-output fade-in">
             <h3>The Triangulation Data You Receive</h3>
             <p class="text-muted">Every match includes the complete data set required for high-confidence reconnection.</p>
-            <div class="data-table-scroll">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Data Field</th>
-                        <th>Description</th>
-                        <th>Example</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="field-name">Customer Match</td>
-                        <td>Confirmed identity match</td>
-                        <td><span class="badge badge-green">High Confidence</span></td>
-                    </tr>
-                    <tr>
-                        <td class="field-name">Previous Address</td>
-                        <td>The address on your records (verification point)</td>
-                        <td>14 Oak Lane, Manchester, M1 2AB</td>
-                    </tr>
-                    <tr>
-                        <td class="field-name">New Address</td>
-                        <td>Verified new address from move transaction</td>
-                        <td>7 Elm Court, Leeds, LS1 4CD</td>
-                    </tr>
-                    <tr>
-                        <td class="field-name">Move Date</td>
-                        <td>Precise date of move (not estimated)</td>
-                        <td>2026-01-15</td>
-                    </tr>
-                    <tr>
-                        <td class="field-name">Move Type</td>
-                        <td>Tenancy agreement or property completion</td>
-                        <td><span class="badge badge-blue">Tenant</span></td>
-                    </tr>
-                    <tr>
-                        <td class="field-name">Confidence Score</td>
-                        <td>Match confidence level</td>
-                        <td><span class="badge badge-green">High</span> <span class="badge badge-amber">Medium</span> <span class="badge badge-blue">Low</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="data-cards">
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <span class="data-card-icon">&#10003;</span>
+                        <span class="data-card-title">Customer Match</span>
+                    </div>
+                    <p class="data-card-desc">Confirmed identity match</p>
+                    <div class="data-card-example"><span class="badge badge-green">High Confidence</span></div>
+                </div>
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <span class="data-card-icon">&#8592;</span>
+                        <span class="data-card-title">Previous Address</span>
+                    </div>
+                    <p class="data-card-desc">The address on your records (verification point)</p>
+                    <div class="data-card-example">14 Oak Lane, Manchester, M1 2AB</div>
+                </div>
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <span class="data-card-icon">&#8594;</span>
+                        <span class="data-card-title">New Address</span>
+                    </div>
+                    <p class="data-card-desc">Verified new address from move transaction</p>
+                    <div class="data-card-example">7 Elm Court, Leeds, LS1 4CD</div>
+                </div>
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <span class="data-card-icon">&#128197;</span>
+                        <span class="data-card-title">Move Date</span>
+                    </div>
+                    <p class="data-card-desc">Precise date of move (not estimated)</p>
+                    <div class="data-card-example">2026-01-15</div>
+                </div>
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <span class="data-card-icon">&#127968;</span>
+                        <span class="data-card-title">Move Type</span>
+                    </div>
+                    <p class="data-card-desc">Tenancy agreement or property completion</p>
+                    <div class="data-card-example"><span class="badge badge-blue">Tenant</span></div>
+                </div>
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <span class="data-card-icon">&#9733;</span>
+                        <span class="data-card-title">Confidence Score</span>
+                    </div>
+                    <p class="data-card-desc">Match confidence level</p>
+                    <div class="data-card-example"><span class="badge badge-green">High</span> <span class="badge badge-amber">Medium</span> <span class="badge badge-blue">Low</span></div>
+                </div>
             </div>
         </div>
     </div>
