@@ -341,24 +341,30 @@
         .problem-stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
         }
         .problem-stat {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 140px;
+            align-items: flex-start;
         }
         .problem-stat-value {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 800;
             margin-bottom: 4px;
+            line-height: 1.2;
         }
-        .problem-stat-label { font-size: 0.85rem; color: var(--text-muted); }
+        .problem-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
         .problem-content h2 { margin-bottom: 24px; }
         .problem-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
         .problem-list li {
@@ -925,6 +931,10 @@
             .nav-menu-btn { display: block; }
             .hero-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
             .problem-grid { grid-template-columns: 1fr; }
+            .problem-stat-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px; }
+            .problem-stat { padding: 16px; }
+            .problem-stat-value { font-size: 1.4rem; }
+            .problem-stat-label { font-size: 0.75rem; }
             .comparison-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; }
             .speed-grid { grid-template-columns: 1fr 1fr; }
