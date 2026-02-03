@@ -49,6 +49,9 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
+            overflow-x: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         /* ===== NAV ===== */
@@ -451,6 +454,10 @@
             .form-row { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .footer-inner { flex-direction: column; gap: 16px; }
+            .nav-inner { padding: 0 16px; }
+            .contact-form-wrapper { padding: 32px 16px 48px; }
+            .contact-info { padding: 48px 16px 32px; }
+            .contact-info h1 { font-size: 1.75rem; }
         }
     </style>
 </head>

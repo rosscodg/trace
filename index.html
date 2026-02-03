@@ -61,6 +61,8 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         /* ===== UTILITY ===== */
@@ -885,12 +887,23 @@
             .cta-steps { flex-direction: column; align-items: center; }
             .footer-grid { grid-template-columns: 1fr; }
             .vs-table { font-size: 0.8rem; }
+            .vs-table th, .vs-table td { padding: 12px 16px; }
             .data-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .hero-desc { font-size: 1rem; padding: 0 8px; }
+            .section-subtitle { font-size: 1rem; padding: 0 8px; }
+            h1 br, h2 br { display: none; }
         }
         @media (max-width: 480px) {
+            .container, .container-lg { padding: 0 16px; }
+            .section { padding: 60px 0; }
             .hero-stats { grid-template-columns: 1fr; }
             .speed-grid { grid-template-columns: 1fr; }
-            .hero-actions { flex-direction: column; align-items: center; }
+            .hero-actions { flex-direction: column; align-items: center; width: 100%; }
+            .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; text-align: center; }
+            .vs-table th, .vs-table td { padding: 10px 12px; font-size: 0.75rem; }
+            .pricing-card { padding: 24px 20px; }
+            .roi-banner { padding: 32px 16px; }
+            .cta-step { padding: 0 8px; }
         }
 
         /* ===== MOBILE NAV OVERLAY ===== */
@@ -900,24 +913,27 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 11, 15, 0.95);
+            background: rgba(10, 11, 15, 0.98);
             backdrop-filter: blur(20px);
-            z-index: 999;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 32px;
+            gap: 24px;
+            padding: 80px 24px 40px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
+            overflow-y: auto;
         }
         .mobile-nav.open { opacity: 1; pointer-events: all; }
         .mobile-nav a {
             color: var(--text-primary);
             text-decoration: none;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
+            padding: 8px 16px;
         }
         .mobile-nav-close {
             position: absolute;
@@ -928,6 +944,10 @@
             color: var(--text-primary);
             font-size: 2rem;
             cursor: pointer;
+            z-index: 1001;
+            padding: 8px;
+            min-width: 44px;
+            min-height: 44px;
         }
     </style>
 </head>
