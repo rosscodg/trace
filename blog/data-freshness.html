@@ -201,7 +201,7 @@ footer a{color:var(--accent-light)}
 </footer>
 <script>
 function toggleTheme(){const h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('theme',n)}
-(function(){const s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches,t=s||(p?'dark':'light');if(t==='light')document.documentElement.setAttribute('data-theme','light')})();
+(function(){const s=localStorage.getItem('theme');if(s==='light')document.documentElement.setAttribute('data-theme','light')})();
 </script>
 </body>
 </html>

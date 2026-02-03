@@ -717,12 +717,10 @@ function toggleTheme() {
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
 }
-// Initialize theme from localStorage or system preference
+// Initialize theme from localStorage (defaults to dark)
 (function() {
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (prefersDark ? 'dark' : 'light');
-    if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
 })();
 </script>
 
