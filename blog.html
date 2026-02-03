@@ -164,7 +164,30 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
 body, nav {
     transition: background-color 0.3s, border-color 0.3s;
 }
-@media (max-width: 600px) { .hero h1 { font-size: 28px; } .grid { grid-template-columns: 1fr; } }
+/* Hamburger menu */
+.nav-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; padding: 4px; min-width: 44px; min-height: 44px; }
+/* Mobile nav overlay */
+.mobile-nav { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,11,15,0.98); backdrop-filter: blur(20px); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 80px 24px 40px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-out; }
+.mobile-nav.open { opacity: 1; pointer-events: all; }
+.mobile-nav.closing { opacity: 0; pointer-events: none; transition: opacity 0.25s ease-in 0.15s; }
+.mobile-nav a { color: var(--text-primary); text-decoration: none; font-size: 1.25rem; font-weight: 600; padding: 8px 16px; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
+.mobile-nav.open a { opacity: 1; transform: translateY(0); }
+.mobile-nav.open a:nth-child(2) { transition-delay: 0.05s; }
+.mobile-nav.open a:nth-child(3) { transition-delay: 0.1s; }
+.mobile-nav.open a:nth-child(4) { transition-delay: 0.15s; }
+.mobile-nav.closing a { opacity: 0; transform: translateY(-15px); transition: opacity 0.2s ease-in, transform 0.2s ease-in; }
+.mobile-nav-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--text-primary); font-size: 2rem; cursor: pointer; z-index: 2001; padding: 8px; min-width: 44px; min-height: 44px; opacity: 0; transform: rotate(-90deg); transition: opacity 0.2s ease-out, transform 0.3s ease-out; }
+.mobile-nav.open .mobile-nav-close { opacity: 1; transform: rotate(0deg); }
+.mobile-nav.closing .mobile-nav-close { opacity: 0; transform: rotate(90deg); }
+.mobile-nav-close:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 16px; }
+}
+@media (max-width: 600px) { .hero h1 { font-size: 28px; } .grid { grid-template-columns: 1fr; } .nav-inner { padding: 0 16px; } }
 </style>
 </head>
 <body>
@@ -187,9 +210,18 @@ body, nav {
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
+      <button class="nav-menu-btn" aria-label="Open menu" onclick="document.getElementById('mobileNav').classList.add('open')">&#9776;</button>
     </div>
   </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div id="mobileNav" class="mobile-nav">
+  <button class="mobile-nav-close" aria-label="Close menu" onclick="closeMobileNav()">&times;</button>
+  <a href="index.html" onclick="closeMobileNav()">Home</a>
+  <a href="blog.html" onclick="closeMobileNav()">Resources</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+</div>
 
 <main id="main">
   <section class="hero">
@@ -234,6 +266,12 @@ body, nav {
   <p>&copy; 2026 Tracely. All rights reserved. &nbsp;|&nbsp; <a href="index.html">Home</a> &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
 </footer>
 <script>
+// Mobile nav
+function closeMobileNav() {
+    const m = document.getElementById('mobileNav');
+    m.classList.add('closing'); m.classList.remove('open');
+    setTimeout(() => m.classList.remove('closing'), 400);
+}
 // Theme toggle
 function toggleTheme() {
     const html = document.documentElement;
