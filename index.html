@@ -947,6 +947,7 @@
             overflow-y: auto;
         }
         .mobile-nav.open { opacity: 1; pointer-events: all; }
+        .mobile-nav.closing { opacity: 0; pointer-events: none; transition: opacity 0.25s ease-in 0.15s; }
         .mobile-nav a, .mobile-nav .theme-toggle {
             color: var(--text-primary);
             text-decoration: none;
@@ -970,6 +971,21 @@
         .mobile-nav.open a:nth-child(8) { transition-delay: 0.35s; }
         .mobile-nav.open a:nth-child(9) { transition-delay: 0.4s; }
         .mobile-nav.open .theme-toggle { transition-delay: 0.45s; }
+        /* Closing animation - items slide down and fade out */
+        .mobile-nav.closing a, .mobile-nav.closing .theme-toggle {
+            opacity: 0;
+            transform: translateY(-15px);
+            transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+        }
+        .mobile-nav.closing a:nth-child(9) { transition-delay: 0s; }
+        .mobile-nav.closing a:nth-child(8) { transition-delay: 0.02s; }
+        .mobile-nav.closing a:nth-child(7) { transition-delay: 0.04s; }
+        .mobile-nav.closing a:nth-child(6) { transition-delay: 0.06s; }
+        .mobile-nav.closing a:nth-child(5) { transition-delay: 0.08s; }
+        .mobile-nav.closing a:nth-child(4) { transition-delay: 0.1s; }
+        .mobile-nav.closing a:nth-child(3) { transition-delay: 0.12s; }
+        .mobile-nav.closing a:nth-child(2) { transition-delay: 0.14s; }
+        .mobile-nav.closing .theme-toggle { transition-delay: 0s; }
         .mobile-nav-close {
             position: absolute;
             top: 24px;
@@ -990,6 +1006,11 @@
         .mobile-nav.open .mobile-nav-close {
             opacity: 1;
             transform: rotate(0deg);
+        }
+        .mobile-nav.closing .mobile-nav-close {
+            opacity: 0;
+            transform: rotate(90deg);
+            transition: opacity 0.15s ease-in, transform 0.2s ease-in;
         }
         .mobile-nav-close:hover {
             color: var(--accent);
@@ -1065,15 +1086,15 @@
 
 <!-- MOBILE NAV -->
 <div id="mobileNav" class="mobile-nav">
-    <button class="mobile-nav-close" aria-label="Close menu" onclick="document.getElementById('mobileNav').classList.remove('open')">&times;</button>
-    <a href="#problem" onclick="document.getElementById('mobileNav').classList.remove('open')">The Problem</a>
-    <a href="#solution" onclick="document.getElementById('mobileNav').classList.remove('open')">How It Works</a>
-    <a href="#advantage" onclick="document.getElementById('mobileNav').classList.remove('open')">Our Advantage</a>
-    <a href="#compare" onclick="document.getElementById('mobileNav').classList.remove('open')">Compare</a>
-    <a href="#pricing" onclick="document.getElementById('mobileNav').classList.remove('open')">Pricing</a>
-    <a href="#results" onclick="document.getElementById('mobileNav').classList.remove('open')">Results</a>
-    <a href="blog.html" onclick="document.getElementById('mobileNav').classList.remove('open')">Resources</a>
-    <a href="#contact" class="nav-cta" onclick="document.getElementById('mobileNav').classList.remove('open')">Get Started</a>
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="closeMobileNav()">&times;</button>
+    <a href="#problem" onclick="closeMobileNav()">The Problem</a>
+    <a href="#solution" onclick="closeMobileNav()">How It Works</a>
+    <a href="#advantage" onclick="closeMobileNav()">Our Advantage</a>
+    <a href="#compare" onclick="closeMobileNav()">Compare</a>
+    <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+    <a href="#results" onclick="closeMobileNav()">Results</a>
+    <a href="blog.html" onclick="closeMobileNav()">Resources</a>
+    <a href="#contact" class="nav-cta" onclick="closeMobileNav()">Get Started</a>
     <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()" style="margin-top: 24px;">
         <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -1647,6 +1668,16 @@ function toggleTheme() {
     const saved = localStorage.getItem('theme');
     if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
 })();
+
+// Mobile nav close with animation
+function closeMobileNav() {
+    const mobileNav = document.getElementById('mobileNav');
+    mobileNav.classList.add('closing');
+    mobileNav.classList.remove('open');
+    setTimeout(() => {
+        mobileNav.classList.remove('closing');
+    }, 400);
+}
 
 // Nav scroll effect
 const nav = document.getElementById('nav');
