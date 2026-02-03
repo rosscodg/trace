@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found | Tracely</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-size='20' font-weight='700' fill='white'%3ET%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="tracely-favicon.png">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY18FSPGCF"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EY18FSPGCF');</script>
@@ -70,19 +70,14 @@
             left: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
             text-decoration: none;
-            color: #f0f0f5;
-            font-weight: 700;
-            font-size: 1.25rem;
         }
-        .logo span { opacity: 0.5; font-weight: 400; margin-left: 4px; font-size: 0.75rem; }
+        .logo img { height: 40px; width: auto; }
     </style>
 </head>
 <body>
-    <a href="index.html" class="logo" style="background: none; padding: 0;">
-        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
-        Tracely
+    <a href="index.html" class="logo" aria-label="Tracely home">
+        <img src="tracely-white-logo.svg" alt="Tracely">
     </a>
     <div class="error-code">404</div>
     <h1>Page not found</h1>

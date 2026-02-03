@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracely | Real-Time Customer Reconnection Data</title>
     <meta name="description" content="Tracely helps financial services reconnect with customers who move - in real-time, not weeks later. Powered by Just Move In.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-size='20' font-weight='700' fill='white'%3ET%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="tracely-favicon.png">
     <!-- Open Graph -->
     <meta property="og:title" content="Tracely | Real-Time Customer Reconnection Data">
     <meta property="og:description" content="Know when your customers move - 6-12 weeks before credit reference agencies. Real-time reconnection data for UK financial services.">
@@ -148,23 +148,16 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
             text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 700;
-            font-size: 1.25rem;
         }
-        .nav-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--accent), #6d28d9);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+        .nav-logo img {
+            height: 40px;
+            width: auto;
         }
-        .nav-logo span { opacity: 0.5; font-weight: 400; margin-left: 4px; font-size: 0.75rem; }
+        .nav-logo .logo-dark { display: block; }
+        .nav-logo .logo-light { display: none; }
+        html[data-theme="light"] .nav-logo .logo-dark { display: none; }
+        html[data-theme="light"] .nav-logo .logo-light { display: block; }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
             color: var(--text-secondary);
@@ -1114,9 +1107,9 @@
 <nav id="nav" aria-label="Main navigation">
     <div class="container-lg">
         <div class="nav-inner">
-            <a href="#" class="nav-logo">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
-                Tracely
+            <a href="#" class="nav-logo" aria-label="Tracely home">
+                <img src="tracely-white-logo.svg" alt="Tracely" class="logo-dark">
+                <img src="tracely-black-logo.svg" alt="Tracely" class="logo-light">
             </a>
             <ul class="nav-links">
                 <li><a href="#problem">The Problem</a></li>
@@ -1675,9 +1668,9 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="#" class="nav-logo" style="margin-bottom: 8px;">
-                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#logoGrad)"/><text x="18" y="25" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="white">T</text></svg>
-                    Tracely
+                <a href="#" class="nav-logo" style="margin-bottom: 8px;" aria-label="Tracely home">
+                    <img src="tracely-white-logo.svg" alt="Tracely" class="logo-dark">
+                    <img src="tracely-black-logo.svg" alt="Tracely" class="logo-light">
                 </a>
                 <p>Real-time customer reconnection data, powered by Just Move In. Helping UK financial services reconnect with customers who move.</p>
             </div>
