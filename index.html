@@ -53,6 +53,25 @@
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* Light Mode */
+        html[data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f7fb;
+            --border: #e2e5ef;
+            --border-light: #eef1f8;
+            --text-primary: #1a1d2e;
+            --text-secondary: #555d73;
+            --text-muted: #7a8294;
+            --accent-glow: rgba(139, 92, 246, 0.08);
+            --accent-glow-strong: rgba(139, 92, 246, 0.12);
+            --green-dim: rgba(74, 222, 128, 0.12);
+            --red-dim: rgba(248, 113, 113, 0.12);
+            --amber-dim: rgba(251, 191, 36, 0.12);
+            --blue-dim: rgba(96, 165, 250, 0.12);
+        }
+
         html { scroll-behavior: smooth; }
         body {
             font-family: var(--font);
@@ -949,6 +968,38 @@
             min-width: 44px;
             min-height: 44px;
         }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            margin-right: 16px;
+        }
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .theme-toggle .icon-sun { display: none; }
+        .theme-toggle .icon-moon { display: block; }
+        html[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+        html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+        html[data-theme="light"] nav.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Theme transition */
+        body, .hero::before, nav, .mobile-nav {
+            transition: background-color 0.3s, border-color 0.3s;
+        }
     </style>
 </head>
 <body>
@@ -972,6 +1023,14 @@
                 <li><a href="#results">Results</a></li>
                 <li><a href="blog.html">Resources</a></li>
             </ul>
+            <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+                <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
             <a href="#contact" class="nav-cta">Get Started &rarr;</a>
             <button class="nav-menu-btn" aria-label="Open menu" onclick="document.getElementById('mobileNav').classList.add('open')">&#9776;</button>
         </div>
@@ -989,6 +1048,14 @@
     <a href="#results" onclick="document.getElementById('mobileNav').classList.remove('open')">Results</a>
     <a href="blog.html" onclick="document.getElementById('mobileNav').classList.remove('open')">Resources</a>
     <a href="#contact" class="nav-cta" onclick="document.getElementById('mobileNav').classList.remove('open')">Get Started</a>
+    <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()" style="margin-top: 24px;">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
 </div>
 
 <!-- HERO -->
@@ -1540,6 +1607,23 @@
 </footer>
 
 <script>
+// Theme toggle
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+// Initialize theme from localStorage or system preference
+(function() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = saved || (prefersDark ? 'dark' : 'light');
+    if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+})();
+
 // Nav scroll effect
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
