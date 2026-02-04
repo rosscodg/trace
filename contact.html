@@ -12,6 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tracely.co.uk/contact.html">
     <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://tracely.co.uk/tracely-og.png">
     <link rel="canonical" href="https://tracely.co.uk/contact.html">
     <!-- JSON-LD Structured Data for AI Search Optimization -->
     <script type="application/ld+json">
@@ -65,59 +66,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://qdxwvzmpantteasdgptj.supabase.co">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <script src="shared.js"></script>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* ===== PAGE-SPECIFIC STYLES — contact.html ===== */
 
-        :root {
-            --bg-primary: #0a0b0f;
-            --bg-secondary: #12131a;
-            --bg-card: #141519;
-            --bg-input: #1a1b21;
-            --border: #2a2d3e;
-            --border-light: #353849;
-            --text-primary: #f0f0f5;
-            --text-secondary: #a0a3b5;
-            --text-muted: #8b8fa5;
-            --accent: #8b5cf6;
-            --accent-light: #a78bfa;
-            --accent-glow: rgba(139, 92, 246, 0.15);
-            --green: #4ade80;
-            --green-dim: rgba(74, 222, 128, 0.15);
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        /* Light Mode */
-        html[data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fc;
-            --bg-card: #ffffff;
-            --bg-card-hover: #f5f7fb;
-            --bg-input: #f5f7fb;
-            --border: #e2e5ef;
-            --border-light: #eef1f8;
-            --text-primary: #1a1d2e;
-            --text-secondary: #555d73;
-            --text-muted: #7a8294;
-            --accent-glow: rgba(139, 92, 246, 0.08);
-            --green-dim: rgba(74, 222, 128, 0.12);
-        }
-        html[data-theme="light"] nav {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-            overflow-x: hidden;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
+        /* contact.html overrides */
+        body { min-height: 100vh; }
+        html[data-theme="light"] nav { background: rgba(255, 255, 255, 0.9); }
 
         /* ===== NAV ===== */
         nav {
@@ -135,23 +92,8 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        .nav-logo img {
-            height: 32px;
-            width: auto;
-        }
-        .nav-logo .logo-dark { display: block; }
-        .nav-logo .logo-light { display: none; }
-        html[data-theme="light"] .nav-logo .logo-dark { display: none; }
-        html[data-theme="light"] .nav-logo .logo-light { display: block; }
+        .nav-logo img { height: 32px; }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
             color: var(--text-secondary);
@@ -176,14 +118,10 @@
         }
         .nav-cta:hover { background: var(--accent-light); }
         .nav-back {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: color 0.2s;
+            font-size: 0.875rem;
         }
         .nav-back:hover { color: var(--text-primary); }
 
@@ -492,81 +430,6 @@
         .form-submit.loading .spinner { display: inline-block; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== HAMBURGER MENU BUTTON ===== */
-        .nav-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 4px;
-            min-width: 44px;
-            min-height: 44px;
-        }
-
-        /* ===== MOBILE NAV OVERLAY ===== */
-        .mobile-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 11, 15, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            padding: 80px 24px 40px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-out;
-        }
-        .mobile-nav.open { opacity: 1; pointer-events: all; }
-        .mobile-nav.closing { opacity: 0; pointer-events: none; transition: opacity 0.25s ease-in 0.15s; }
-        .mobile-nav a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 1.25rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out, color 0.2s;
-        }
-        .mobile-nav.open a {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .mobile-nav.open a:nth-child(2) { transition-delay: 0.05s; }
-        .mobile-nav.open a:nth-child(3) { transition-delay: 0.1s; }
-        .mobile-nav.open a:nth-child(4) { transition-delay: 0.15s; }
-        .mobile-nav.open a:nth-child(5) { transition-delay: 0.2s; }
-        .mobile-nav.closing a {
-            opacity: 0;
-            transform: translateY(-15px);
-            transition: opacity 0.2s ease-in, transform 0.2s ease-in;
-        }
-        .mobile-nav-close {
-            position: absolute;
-            top: 24px; right: 24px;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 2001;
-            padding: 8px;
-            min-width: 44px;
-            min-height: 44px;
-            opacity: 0;
-            transform: rotate(-90deg);
-            transition: opacity 0.2s ease-out, transform 0.3s ease-out, color 0.2s;
-        }
-        .mobile-nav.open .mobile-nav-close { opacity: 1; transform: rotate(0deg); }
-        .mobile-nav.closing .mobile-nav-close { opacity: 0; transform: rotate(90deg); transition: opacity 0.15s ease-in, transform 0.2s ease-in; }
-        .mobile-nav-close:hover { color: var(--accent); }
-
         /* ===== MOBILE ===== */
         @media (max-width: 1024px) {
             .contact-page { grid-template-columns: 1fr; }
@@ -602,36 +465,11 @@
             .testimonial { margin-left: 0; }
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            transition: all 0.2s;
-        }
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        .theme-toggle .icon-sun { display: none; }
-        .theme-toggle .icon-moon { display: block; }
-        html[data-theme="light"] .theme-toggle .icon-sun { display: block; }
-        html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
-        body, nav {
-            transition: background-color 0.3s, border-color 0.3s;
-        }
     </style>
 </head>
 <body>
 
-<a href="#contactForm" class="skip-link" style="position:absolute;top:-100px;left:16px;background:#8b5cf6;color:#fff;padding:8px 16px;border-radius:8px;z-index:10000;font-size:0.875rem;font-weight:600;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top='16px'" onblur="this.style.top='-100px'">Skip to form</a>
+<a href="#contactForm" class="skip-link">Skip to form</a>
 
 <!-- NAV -->
 <nav aria-label="Main navigation">
@@ -840,31 +678,6 @@ document.getElementById('contactForm').addEventListener('submit', async function
 });
 </script>
 
-<script>
-// Mobile nav close with animation
-function closeMobileNav() {
-    const mobileNav = document.getElementById('mobileNav');
-    mobileNav.classList.add('closing');
-    mobileNav.classList.remove('open');
-    setTimeout(() => {
-        mobileNav.classList.remove('closing');
-    }, 400);
-}
-
-// Theme toggle
-function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-}
-// Initialize theme from localStorage (defaults to dark)
-(function() {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
-})();
-</script>
 
 </body>
 </html>

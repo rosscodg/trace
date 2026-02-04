@@ -8,6 +8,7 @@
 <meta property="og:title" content="Resources | Tracely">
 <meta property="og:description" content="Insights on gone-away customers, FCA Consumer Duty, and real-time data for UK financial services.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://tracely.co.uk/tracely-og.png">
 <link rel="icon" type="image/png" href="tracely-favicon.png">
 <link rel="canonical" href="https://tracely.co.uk/blog.html">
 
@@ -76,50 +77,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<script src="shared.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY18FSPGCF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EY18FSPGCF');</script>
 <style>
-:root {
-  --bg-primary: #0a0b0f;
-  --bg-secondary: #12131a;
-  --bg-card: #181a24;
-  --border: #2a2d3e;
-  --text-primary: #f0f0f5;
-  --text-secondary: #8b8fa5;
-  --text-muted: #8b8fa5;
-  --accent: #8b5cf6;
-  --accent-light: #a78bfa;
-  --accent-glow: rgba(139, 92, 246, 0.15);
-  --green: #4ade80;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-/* Light Mode */
-html[data-theme="light"] {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fc;
-    --bg-card: #ffffff;
-    --border: #e2e5ef;
-    --text-primary: #1a1d2e;
-    --text-secondary: #555d73;
-    --text-muted: #7a8294;
-    --accent-glow: rgba(139, 92, 246, 0.08);
-}
-html[data-theme="light"] nav {
-    background: rgba(255, 255, 255, 0.9);
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--font); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-a { color: inherit; text-decoration: none; }
-.skip-link { position: absolute; top: -100%; left: 16px; background: var(--accent); color: #fff; padding: 8px 16px; border-radius: 4px; z-index: 1000; font-size: 14px; }
-.skip-link:focus { top: 16px; }
+html[data-theme="light"] nav { background: rgba(255, 255, 255, 0.9); }
 nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 11, 15, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
 .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-.nav-logo { display: flex; align-items: center; text-decoration: none; }
-.nav-logo img { height: 40px; width: auto; }
-.nav-logo .logo-dark { display: block; }
-.nav-logo .logo-light { display: none; }
-html[data-theme="light"] .nav-logo .logo-dark { display: none; }
-html[data-theme="light"] .nav-logo .logo-light { display: block; }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
 .nav-links a { color: var(--text-secondary); transition: color .2s; }
 .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
@@ -137,50 +102,6 @@ html[data-theme="light"] .nav-logo .logo-light { display: block; }
 .card-footer .read-more { color: var(--accent-light); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: gap .2s; }
 .card-footer .read-more:hover { gap: 10px; }
 .card-footer .meta { color: var(--text-muted); font-size: 13px; }
-footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; color: var(--text-muted); font-size: 14px; }
-footer a { color: var(--accent-light); }
-/* Theme Toggle */
-.theme-toggle {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    transition: all 0.2s;
-}
-.theme-toggle:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-.theme-toggle .icon-sun { display: none; }
-.theme-toggle .icon-moon { display: block; }
-html[data-theme="light"] .theme-toggle .icon-sun { display: block; }
-html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
-body, nav {
-    transition: background-color 0.3s, border-color 0.3s;
-}
-/* Hamburger menu */
-.nav-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; padding: 4px; min-width: 44px; min-height: 44px; }
-/* Mobile nav overlay */
-.mobile-nav { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,11,15,0.98); backdrop-filter: blur(20px); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 80px 24px 40px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-out; }
-.mobile-nav.open { opacity: 1; pointer-events: all; }
-.mobile-nav.closing { opacity: 0; pointer-events: none; transition: opacity 0.25s ease-in 0.15s; }
-.mobile-nav a { color: var(--text-primary); text-decoration: none; font-size: 1.25rem; font-weight: 600; padding: 8px 16px; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
-.mobile-nav.open a { opacity: 1; transform: translateY(0); }
-.mobile-nav.open a:nth-child(2) { transition-delay: 0.05s; }
-.mobile-nav.open a:nth-child(3) { transition-delay: 0.1s; }
-.mobile-nav.open a:nth-child(4) { transition-delay: 0.15s; }
-.mobile-nav.closing a { opacity: 0; transform: translateY(-15px); transition: opacity 0.2s ease-in, transform 0.2s ease-in; }
-.mobile-nav-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--text-primary); font-size: 2rem; cursor: pointer; z-index: 2001; padding: 8px; min-width: 44px; min-height: 44px; opacity: 0; transform: rotate(-90deg); transition: opacity 0.2s ease-out, transform 0.3s ease-out; }
-.mobile-nav.open .mobile-nav-close { opacity: 1; transform: rotate(0deg); }
-.mobile-nav.closing .mobile-nav-close { opacity: 0; transform: rotate(90deg); }
-.mobile-nav-close:hover { color: var(--accent); }
-
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-menu-btn { display: block; }
@@ -262,29 +183,8 @@ body, nav {
   </div>
 </main>
 
-<footer>
+<footer class="footer-simple">
   <p>&copy; 2026 Tracely. All rights reserved. &nbsp;|&nbsp; <a href="index.html">Home</a> &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
 </footer>
-<script>
-// Mobile nav
-function closeMobileNav() {
-    const m = document.getElementById('mobileNav');
-    m.classList.add('closing'); m.classList.remove('open');
-    setTimeout(() => m.classList.remove('closing'), 400);
-}
-// Theme toggle
-function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-}
-// Initialize theme from localStorage (defaults to dark)
-(function() {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
-})();
-</script>
 </body>
 </html>
