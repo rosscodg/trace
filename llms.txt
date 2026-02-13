@@ -37,11 +37,11 @@ Tracely uses triangulation matching: we verify customer identity by matching the
 - Content: Industry insights, regulatory guidance, data comparisons
 
 ### Case Studies
-- Royal London: https://tracely.co.uk/case-studies/royal-london.html
+- Financial Services Giant: https://tracely.co.uk/case-studies/royal-london.html
   - Result: 6.7x ROI, 36,000 policyholders reconnected
 - Major UK Insurer: https://tracely.co.uk/case-studies/major-uk-insurer.html
   - Result: £1 billion in customer value reconnected annually
-- ABI Research: https://tracely.co.uk/case-studies/abi-research.html
+- Behavioural Research Business: https://tracely.co.uk/case-studies/abi-research.html
   - Result: £100 million projected additional annual reclamations
 
 ### Blog Articles

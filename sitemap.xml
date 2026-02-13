@@ -3,7 +3,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://tracely.co.uk/</loc>
-    <lastmod>2026-02-03</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,7 +11,7 @@
   <!-- Contact -->
   <url>
     <loc>https://tracely.co.uk/contact.html</loc>
-    <lastmod>2026-02-03</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -49,7 +49,7 @@
   <!-- Case Studies -->
   <url>
     <loc>https://tracely.co.uk/case-studies/royal-london.html</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -63,7 +63,7 @@
 
   <url>
     <loc>https://tracely.co.uk/case-studies/abi-research.html</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
